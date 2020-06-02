@@ -1,0 +1,17 @@
+{
+  "name": "my-nuxt-app",
+  "version": "1.0.0",
+  "description": "Practicing nuxt app and its core features",
+  "author": "Satyajit Mondal",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {}
+}
