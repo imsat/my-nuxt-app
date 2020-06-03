@@ -1,30 +1,22 @@
 <template>
-    <h1 class="center-3 danger">An error occurred, we are sorry!!</h1>
+  <div class="error-page">
+    <h1>Oops, something went wrong!</h1>
+    <p>Back to <a href="/">safety</a>!</p>
+  </div>
 </template>
 
-<style scoped >
-  .center-1 {
-    position: fixed;  /* or absolute */
-    top:50%;
-    left: 50%;
+<style scoped>
+  .error-page {
+    text-align: center;
   }
 
-  .center-2 {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -100px;
-  }
-  .center-3 {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    /* bring your own prefixes */
-    transform: translate(-50%, -50%);
-  }
-
-  .danger {
+  .error-page a {
+    text-decoration: none;
     color: red;
+  }
+
+  .error-page a:hover,
+  .error-page a:active {
+    color: salmon;
   }
 </style>
