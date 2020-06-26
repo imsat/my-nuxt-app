@@ -5,20 +5,23 @@
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
-      <PostList isAdmin />
+      <PostList isAdmin :posts="loadedPosts" />
     </section>
   </div>
 </template>
 <script>
   import PostList from "~/components/Posts/PostList";
   import AppButton from "~/components/UI/AppButton";
-
+import { mapState } from 'vuex'
   export default {
     layout: 'admin',
     components: {
       AppButton,
       PostList
     },
+    computed: {
+      ...mapState(['loadedPosts'])
+    }
   }
 </script>
 

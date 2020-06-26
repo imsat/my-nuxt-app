@@ -1,13 +1,15 @@
 <template>
   <div class="admin-post-page">
     <section class="update-post-form">
-      <AdminPostForm :post="loadedPost" />
+      <AdminPostForm :post="loadedPost" @submit="onSubmitted" />
     </section>
   </div>
 </template>
 
 <script>
   import AdminPostForm from "~/components/Admin/AdminPostForm";
+  import axios from 'axios';
+  import { mapActions } from 'vuex'
     export default {
       layout: 'admin',
       components: {
@@ -15,14 +17,33 @@
       },
       data() {
         return {
-          loadedPost: {
-            author: 'Satyajit',
-            title: 'My awesome post',
-            content: 'Super amazing, thanks for that!',
-            thumbnailLink: 'https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1',
-          }
+          // loadedPost: {
+          //   author: '',
+          //   title: '',
+          //   content: '',
+          //   thumbnail: '',
+          //   previewText: ''
+          // }0
         }
       },
+      asyncData(context) {
+        return axios.get(process.env.baseUrl +  '/posts/' + context.params.postId + '.json')
+          .then(res => {
+            return {
+              loadedPost: {...res.data, id: context.params.postId}
+            }
+
+          })
+          .catch(e => context.error(e))
+      },
+      methods: {
+        ...mapActions(['editedPost']),
+        onSubmitted(editedPost){
+          this.editedPost(editedPost).then(() => {
+            this.$router.push('/admin')
+          })
+        }
+      }
     }
 </script>
 

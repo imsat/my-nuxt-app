@@ -1,26 +1,13 @@
 <template>
   <section class="post-list">
     <PostPreview
-      id="1"
+      v-for="(post, index) in posts"
+      :key="index"
+      :id="post.id"
       :is-admin="isAdmin"
-      title="Hello there!"
-      previewText="This is my 1st post"
-      thumbnail="https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1"
-    />
-
-    <PostPreview
-      id="2"
-      :is-admin="isAdmin"
-      title="Hello there - the second time!"
-      previewText="This is my second post"
-      thumbnail="https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1"
-    />
-    <PostPreview
-      id="3"
-      :is-admin="isAdmin"
-      title="Hello there - the third time!"
-      previewText="This is my third post"
-      thumbnail="https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1"
+      :title="post.title"
+      :previewText="post.previewText"
+      :thumbnail="post.thumbnail"
     />
   </section>
 </template>
@@ -37,6 +24,10 @@
       isAdmin: {
         type: Boolean,
         default: false
+      },
+      posts: {
+        type: Array,
+        required: true,
       }
     }
   }

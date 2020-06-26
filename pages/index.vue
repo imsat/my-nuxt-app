@@ -1,19 +1,59 @@
 <template>
   <div class="home-page">
     <section class="intro">
-      <h1>Get the latest tech  news!</h1>
+      <h1>Get the latest tech news!</h1>
     </section>
-    <PostList />
+    <PostList :posts="loadedPosts"/>
   </div>
 </template>
 
 <script>
   import PostList from "~/components/Posts/PostList";
+  import {mapState} from 'vuex'
 
   export default {
     components: {
       PostList
-    }
+    },
+    computed: {
+      ...mapState(['loadedPosts'])
+    },
+    // NB. this object does not worked in asyncData method
+    // asyncData(context, callback) {
+    //   // console.log('asyncData is executed!')
+    //   console.log(context)
+    //   setTimeout(() => {
+    //     callback(null, {
+    //       loadedPosts: [
+    //         {
+    //           id: 1,
+    //           title: 'First post',
+    //           previewText: 'This is my first post',
+    //           thumbnail: 'https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1',
+    //         },
+    //         {
+    //           id: 2,
+    //           title: 'Second post',
+    //           previewText: 'This is my second post',
+    //           thumbnail: 'https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1',
+    //         },
+    //         {
+    //           id: 3,
+    //           title: 'Third post',
+    //           previewText: 'This is my third post',
+    //           thumbnail: 'https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1',
+    //         },
+    //       ]
+    //     })
+    //
+    //   }, 1500);
+    //
+    // },
+    // data() {
+    //   return {
+    //     loadedPosts: []
+    //   }
+    // },
   }
 </script>
 
