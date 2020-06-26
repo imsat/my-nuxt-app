@@ -1,49 +1,65 @@
 <template>
-    <div class="single-post-page">
-      <section class="post">
-        <h1 class="post-title">{{loadedPost.title}}</h1>
-        <div class="post-details">
-          <div class="post-detail">{{loadedPost.updatedDate}}</div>
-          <div class="post-detail">{{loadedPost.author}}</div>
-        </div>
-        <p class="post-content">{{loadedPost.content}}</p>
-      </section>
-      <section class="post-feedback">
-        <p>Let me know what you think about the post, send a mail to <a href="mailto:feedbacl@mail.com" >feedbacl@mail.com</a></p>
-      </section>
-    </div>
+  <div class="single-post-page">
+    <section class="post">
+      <h1 class="post-title">{{loadedPost.title}}</h1>
+      <div class="post-details">
+        <div class="post-detail">Last updated on {{loadedPost.updatedDate}}</div>
+        <div class="post-detail">Written by {{loadedPost.author}}</div>
+      </div>
+      <p class="post-content">{{loadedPost.content}}</p>
+    </section>
+    <section class="post-feedback">
+      <p>Let me know what you think about the post, send a mail to <a
+        href="mailto:feedbacl@mail.com">feedbacl@mail.com</a></p>
+    </section>
+  </div>
 </template>
 
 <script>
-    export default {
-      asyncData(context){
-        return new Promise((resolve,reject) => {
+  import axios from 'axios'
 
-          setTimeout(() => {
-            resolve( {
-              loadedPost: {
-                id: 1,
-                title: 'First post (ID: '+ context.params.id +')',
-                // title: 'First post (ID: '+ context.route.params.id +')',
-                previewText: 'This is my first post',
-                author: 'Satyajit',
-                updatedDate: new Date(),
-                content: 'Fetching the data in the web is an asynchronous task which is dreaded by many due to its a-synchronousness.',
-                thumbnail: 'https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1',
-              }
-            })
-          },1000);
+  export default {
+    head: {
+      title: 'A Blog Post'
+    },
+    asyncData(context) {
+      return axios.get(process.env.baseUrl +  '/posts/' + context.params.id + '.json')
+        .then(res => {
+          return {
+            loadedPost: {...res.data, id: context.params.postId}
+          }
 
         })
-          .then(res => {
-            return res
-          })
-          .catch(e => {
-          context.error(new Error())
-        })
+        .catch(e => context.error(e))
 
-      },
-    }
+
+      // return new Promise((resolve,reject) => {
+      //
+      //   setTimeout(() => {
+      //     resolve( {
+      //       loadedPost: {
+      //         id: 1,
+      //         title: 'First post (ID: '+ context.params.id +')',
+      //         // title: 'First post (ID: '+ context.route.params.id +')',
+      //         previewText: 'This is my first post',
+      //         author: 'Satyajit',
+      //         updatedDate: new Date(),
+      //         content: 'Fetching the data in the web is an asynchronous task which is dreaded by many due to its a-synchronousness.',
+      //         thumbnail: 'https://i1.wp.com/blog.codacy.com/wp-content/uploads/2018/10/20181002_WhyCodingStandardsMatter.jpg?fit=750%2C400&ssl=1',
+      //       }
+      //     })
+      //   },1000);
+      //
+      // })
+      //   .then(res => {
+      //     return res
+      //   })
+      //   .catch(e => {
+      //   context.error(new Error())
+      // })
+
+    },
+  }
 </script>
 
 <style scoped>

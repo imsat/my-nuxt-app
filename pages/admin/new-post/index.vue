@@ -1,13 +1,16 @@
 <template>
   <div class="admin-new-post">
     <section class="new-post-form">
-      <AdminPostForm />
+      <AdminPostForm @submit="onSubmited"/>
     </section>
   </div>
 </template>
 
 <script>
   import AdminPostForm from "~/components/Admin/AdminPostForm";
+  import axios from 'axios'
+  import { mapActions } from 'vuex'
+
   export default {
     layout: 'admin',
     components: {
@@ -19,7 +22,13 @@
       }
     },
     methods: {
-      //
+      ...mapActions(['addPost']),
+      onSubmited(postData) {
+        this.addPost(postData)
+        .then(() => {
+          this.$router.push('/admin')
+        })
+      }
     }
   }
 </script>
