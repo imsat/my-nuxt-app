@@ -20,11 +20,11 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  // loading: { color: '#fff' },
+  loading: { color: '#fff' },
   // loading: false,
   // loading: { color: '#FF0000', failedColor: 'yellow' },
-  loading: { color: '#FF0000', height: '4px', duration: 5000 }, // doesn't know about axios request/ default is not determine any request
-  loadingIndicator: { name: 'circle',color: '#fa923f' }, //only work when mode is SPA
+  // loading: { color: '#FF0000', height: '4px', duration: 5000 }, // doesn't know about axios request/ default is not determine any request
+  // loadingIndicator: { name: 'circle',color: '#fa923f' }, //only work when mode is SPA
   /*
   ** Global CSS
   */
@@ -35,6 +35,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~plugins/core-components.js',
+    '~plugins/date-filter.js',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -45,7 +47,13 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
   ],
+  axios: {
+    baseURL: process.env.BASE_URL || 'https://nuxt-blog-a3d84.firebaseio.com',  // Remember about baseURL insted of baseUrl
+    // debug: true,
+    credentials: false
+  },
   /*
   ** Build configuration
   */
@@ -58,7 +66,7 @@ export default {
   },
   // dev: true,
   env: {
-    baseUrl: process.env.BASE_URL ||'https://nuxt-blog-a3d84.firebaseio.com'
+    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-a3d84.firebaseio.com'
   },
   generate: {
     //
@@ -78,8 +86,8 @@ export default {
   },
    // srcDir: 'client-app/',
   // transition: 'page',
-  transition: {
-    name:  'fade',
-    mode: 'out-in'
-  }
+  // transition: {
+  //   name:  'fade',
+  //   mode: 'out-in'
+  // }
 }

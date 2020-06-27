@@ -7,14 +7,10 @@
   </div>
 </template>
 
-<script>
-  import PostList from "~/components/Posts/PostList";
+<script>;
   import {mapState} from 'vuex'
 
   export default {
-    components: {
-      PostList
-    },
     computed: {
       ...mapState(['loadedPosts'])
     },
