@@ -1,5 +1,4 @@
 import Vuex from 'vuex'
-import axios from 'axios'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -25,13 +24,13 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
-        return axios.get(process.env.baseUrl + '/posts.json')
-          .then(res => {
-            console.log(res)
+        return context.app.$axios
+          .$get('/posts.json')
+          .then(data => {
             const postArray = []
-            for (const key in res.data) {
+            for (const key in data) {
               // postArray.push(res.data[key])
-              postArray.push({...res.data[key], id: key})
+              postArray.push({...data[key], id: key})
             }
             vuexContext.commit('SET_POSTS', postArray)
           })
@@ -44,9 +43,9 @@ const createStore = () => {
         const createdPost = {
           ...post, updatedDate: new Date()
         }
-        return axios.post(process.env.baseUrl +  '/posts.json', createdPost)
-          .then(res => {
-            vuexContext.commit('ADD_POST', {...createdPost, id: res.data.name});
+        return this.$axios.$post(process.env.baseUrl +  '/posts.json', createdPost)
+          .then(data => {
+            vuexContext.commit('ADD_POST', {...createdPost, id: data.name});
             this.$router.push('/admin')
           })
           .catch(err => {
@@ -54,8 +53,8 @@ const createStore = () => {
           })
       },
       editedPost(vuexContext, editedPost) {
-        return axios.put(process.env.baseUrl +  '/posts/' + editedPost.id + '.json', editedPost)
-          .then(res => {
+        return this.$axios.$put(process.env.baseUrl +  '/posts/' + editedPost.id + '.json', editedPost)
+          .then(data => {
             vuexContext.commit('EDIT_POST', editedPost)
           })
           // .catch(e => context.error(e))

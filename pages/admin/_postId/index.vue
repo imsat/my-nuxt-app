@@ -8,7 +8,6 @@
 
 <script>
   import AdminPostForm from "~/components/Admin/AdminPostForm";
-  import axios from 'axios';
   import { mapActions } from 'vuex'
     export default {
       layout: 'admin',
@@ -16,21 +15,13 @@
         AdminPostForm
       },
       data() {
-        return {
-          // loadedPost: {
-          //   author: '',
-          //   title: '',
-          //   content: '',
-          //   thumbnail: '',
-          //   previewText: ''
-          // }0
-        }
+        // return { }
       },
       asyncData(context) {
-        return axios.get(process.env.baseUrl +  '/posts/' + context.params.postId + '.json')
-          .then(res => {
+        return context.app.$axios.$get('/posts/' + context.params.postId + '.json')
+          .then(data => {
             return {
-              loadedPost: {...res.data, id: context.params.postId}
+              loadedPost: {...data, id: context.params.postId}
             }
 
           })
