@@ -66,13 +66,15 @@ export default {
   },
   // dev: true,
   env: {
-    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-a3d84.firebaseio.com'
+    baseUrl: process.env.BASE_URL || 'https://nuxt-blog-a3d84.firebaseio.com',
+    fbAPIKey: 'AIzaSyAHfthYLg85KSqymE7UAXYeX00hwG93zw8',
   },
   generate: {
     //
   },
   // rootDir: '/my-beautiful-app',  // by default it is '/'
   router: {
+    // middleware: 'log',
     // base: '/my-beautiful-app/',
     // extendRoutes(routes, resolve) {
     //   routes.push({
