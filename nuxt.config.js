@@ -1,6 +1,8 @@
+const bodyParser = require('body-parser');
 
 export default {
-  mode: 'universal',
+  // mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -91,5 +93,14 @@ export default {
   // transition: {
   //   name:  'fade',
   //   mode: 'out-in'
-  // }
+  // },
+  serverMiddleware: [
+    bodyParser.json(),
+    '~/api'
+  ],
+
+  // serverMiddleware: [
+  //   // Will register file from project api directory to handle /api/* requires
+  //   { path: '/api', handler: '~/api/index.js' },
+  // ]
 }
