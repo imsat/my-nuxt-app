@@ -21,6 +21,11 @@
       title: 'A Blog Post'
     },
     asyncData(context) {
+      if(context.payload) {
+        return {
+          loadedPost: context.payload.postData
+        }
+      }
       return context.app.$axios.$get('/posts/' + context.params.id + '.json')
         .then(data => {
           return {
